@@ -1,9 +1,11 @@
 package org.elati;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -15,6 +17,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "USERDETAILS")
@@ -30,15 +36,20 @@ public class User_Details {
 	@JoinTable(name="USERADD",
 			joinColumns = @JoinColumn(name="USRID")
 			)
-	private Set<Address> listofAddress = new HashSet<Address>();
+	
+	@GenericGenerator(name="hilo-gen", strategy = "hilo")
+	@CollectionId(columns={
+			@Column(name="ADD_ID")
+	}, generator = "hilo-gen", type = @Type(type = "long"))
+	private Collection<Address> listofAddress = new HashSet<Address>();
 
 	private String description;
 
-	public Set<Address> getListofAddress() {
+	public Collection<Address> getListofAddress() {
 		return listofAddress;
 	}
 
-	public void setListofAddress(Set<Address> listofAddress) {
+	public void setListofAddress(Collection<Address> listofAddress) {
 		this.listofAddress = listofAddress;
 	}
 
