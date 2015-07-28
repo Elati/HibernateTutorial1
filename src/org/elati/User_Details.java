@@ -1,10 +1,13 @@
 package org.elati;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,33 +26,18 @@ public class User_Details {
 	private String userName;
 	@Temporal(TemporalType.DATE)
 	private Date joinedDate;
+	@ElementCollection
 	@Embedded
-	@AttributeOverrides({
-			@AttributeOverride(name = "street", column = @Column(name = "OFFICE_STREET_NM")),
-			@AttributeOverride(name = "city", column = @Column(name = "OFFICE_CITY_NM")),
-			@AttributeOverride(name = "country", column = @Column(name = "OFFICE_COUNTRY_NM")),
-			@AttributeOverride(name = "zip", column = @Column(name = "OFFICE_ZIP")) })
-	private Address office_address;
-	@Embedded
-	private Address home_address;
+	private Set<Address> listofAddress = new HashSet<Address>();
+
 	private String description;
 
-	
-	
-	public Address getOffice_address() {
-		return office_address;
+	public Set<Address> getListofAddress() {
+		return listofAddress;
 	}
 
-	public void setOffice_address(Address office_address) {
-		this.office_address = office_address;
-	}
-
-	public Address getHome_address() {
-		return home_address;
-	}
-
-	public void setHome_address(Address home_address) {
-		this.home_address = home_address;
+	public void setListofAddress(Set<Address> listofAddress) {
+		this.listofAddress = listofAddress;
 	}
 
 	public Date getJoinedDate() {
