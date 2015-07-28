@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,44 +30,16 @@ public class User_Details {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int userId;
 	private String userName;
-	@Temporal(TemporalType.DATE)
-	private Date joinedDate;
-	@ElementCollection
-	@Embedded
-	@JoinTable(name="USERADD",
-			joinColumns = @JoinColumn(name="USRID")
-			)
+	@OneToOne
+	@JoinColumn(name="VECHILE_ID")
+	private Vechile vechile;
 	
-	@GenericGenerator(name="hilo-gen", strategy = "hilo")
-	@CollectionId(columns={
-			@Column(name="ADD_ID")
-	}, generator = "hilo-gen", type = @Type(type = "long"))
-	private Collection<Address> listofAddress = new HashSet<Address>();
-
-	private String description;
-
-	public Collection<Address> getListofAddress() {
-		return listofAddress;
+	public Vechile getVechile() {
+		return vechile;
 	}
 
-	public void setListofAddress(Collection<Address> listofAddress) {
-		this.listofAddress = listofAddress;
-	}
-
-	public Date getJoinedDate() {
-		return joinedDate;
-	}
-
-	public void setJoinedDate(Date joinedDate) {
-		this.joinedDate = joinedDate;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	public void setVechile(Vechile vechile) {
+		this.vechile = vechile;
 	}
 
 	public int getUserId() {
