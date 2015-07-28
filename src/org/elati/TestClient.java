@@ -25,16 +25,23 @@ public class TestClient {
 		Transaction transaction = session.beginTransaction();
 		
 		Address add = new Address();
-		add.setStreet("street1");
-		add.setCity("blr");
-		add.setCountry("india");
+		add.setStreet("homestreet");
+		add.setCity("homeblr");
+		add.setCountry("homeindia");
 		add.setZip(400128);
+		
+		Address add2 = new Address();
+		add2.setStreet("officestreet1");
+		add2.setCity("officeblr");
+		add2.setCountry("officeindia");
+		add2.setZip(410128);
 		
 		User_Details user = new User_Details();
 		user.setUserName("pratik");
 		user.setDescription("Description of pratik");
 		user.setJoinedDate(new java.util.Date());
-		user.setAddress(add);
+		user.setHome_address(add);
+		user.setOffice_address(add2);
 		session.save(user);
 		
 		transaction.commit();
